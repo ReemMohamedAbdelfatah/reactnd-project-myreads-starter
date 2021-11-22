@@ -17,6 +17,8 @@ class BooksApp extends React.Component {
      * pages, as well as provide a good URL they can bookmark and share.
      */
   
+   
+    
 componentDidMount(){
   BooksAPI.getAll().then((books)=>{
     this.setState({books:books})
@@ -25,12 +27,23 @@ componentDidMount(){
   )
   
 }
+changeShelf= (book,shelf)=>{
+  BooksAPI.update(book,shelf)
+  this.forceUpdate();
+  BooksAPI.getAll().then((books)=>{
+    this.setState({books:books})
+                                  }
+                      )
+                     
+  }
+
+
   render() {
     console.log (this.state.books);
     return (
       <div className="app">
         
-        <MainPage books={this.state.books}/>
+        <MainPage books={this.state.books} changeShelf={this.changeShelf} />
       </div>
     )
   }

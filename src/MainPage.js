@@ -5,6 +5,7 @@ class MainPage extends Component{
 
 render(){
 console.log(this.props.books);
+
     return(
 
         <div className="list-books">
@@ -19,8 +20,8 @@ console.log(this.props.books);
                 <ol className="books-grid">
                 {
                     this.props.books.filter(book=>book.shelf==='currentlyReading').map(book=> <li key={book.id}>
-                                                                                                    <Book book={book}/>
-                                                                                                </li>)
+                                                                                                   <Book book={book} currentShelf="currentlyReading" changeShelf={this.props.changeShelf}/>
+                                                                                               </li>)
                 }
                   
                 
@@ -33,7 +34,7 @@ console.log(this.props.books);
                 <ol className="books-grid">
                 {
                     this.props.books.filter(book=>book.shelf==='wantToRead').map(book=> <li key={book.id}>
-                                                                                            <Book book={book}/>
+                                                                                            <Book book={book} currentShelf="wantToRead" changeShelf={this.props.changeShelf}/>
                                                                                                 </li>)
                 }
                 </ol>
@@ -45,7 +46,7 @@ console.log(this.props.books);
                 <ol className="books-grid">
                 {
                     this.props.books.filter(book=>book.shelf==='read').map(book=> <li key={book.id}>
-                                                                                                    <Book book={book}/>
+                                                                                                    <Book book={book} currentShelf="read" changeShelf={this.props.changeShelf}/>
                                                                                                 </li>)
                 }
                 </ol>
