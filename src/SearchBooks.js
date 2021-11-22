@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Book from './Book';
+import { Link } from 'react-router-dom';
 import * as BooksAPI from './BooksAPI';
 
 class SearchBooks extends Component{
@@ -34,7 +35,7 @@ render(){
     return(
         <div className="search-books">
         <div className="search-books-bar">
-          <button className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</button>
+          <Link className="close-search" to="/" />
           <div className="search-books-input-wrapper">
             {/*
               NOTES: The search from BooksAPI is limited to a particular set of search terms.
@@ -53,7 +54,7 @@ render(){
             {
               this.state.searchedBooks.map(searchedBook => (
                 <li key={searchedBook.id}>
-                <Book book={searchedBook}/>
+                <Book book={searchedBook} changeShelf={this.props.changeShelf}/>
                 </li>
               ))
             }

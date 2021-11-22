@@ -2,6 +2,7 @@ import React from 'react'
 import MainPage from './MainPage'
 import SearchBooks from './SearchBooks'
 import * as BooksAPI from './BooksAPI'
+import { Route, Routes } from 'react-router-dom'
 
 // import * as BooksAPI from './BooksAPI'
 import './App.css'
@@ -43,10 +44,10 @@ changeShelf= (book,shelf)=>{
     console.log (this.state.books);
     return (
       <div className="app">
-        
-        {/*<MainPage books={this.state.books} changeShelf={this.changeShelf} />*/}
-
-        <SearchBooks />
+     <Routes>
+        <Route  path="/" element= {<MainPage books={this.state.books} changeShelf={this.changeShelf} />} />
+        <Route path="/search" element={<SearchBooks changeShelf={this.changeShelf}/>}/>
+      </Routes>
       </div>
     )
   }
