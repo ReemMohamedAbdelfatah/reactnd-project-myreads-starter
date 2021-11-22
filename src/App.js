@@ -29,7 +29,7 @@ componentDidMount(){
 }
 changeShelf= (book,shelf)=>{
   BooksAPI.update(book,shelf)
-  this.forceUpdate();
+  
   BooksAPI.getAll().then((books)=>{
     this.setState({books:books})
                                   }
@@ -39,11 +39,14 @@ changeShelf= (book,shelf)=>{
 
 
   render() {
+   
     console.log (this.state.books);
     return (
       <div className="app">
         
-        <MainPage books={this.state.books} changeShelf={this.changeShelf} />
+        {/*<MainPage books={this.state.books} changeShelf={this.changeShelf} />*/}
+
+        <SearchBooks />
       </div>
     )
   }
