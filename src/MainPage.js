@@ -19,7 +19,7 @@ console.log(this.props.books);
                 <ol className="books-grid">
                 {
                     this.props.books.filter(book=>book.shelf==='currentlyReading').map(book=> <li key={book.id}>
-                                                                                                    <Book />
+                                                                                                    <Book book={book}/>
                                                                                                 </li>)
                 }
                   
@@ -33,7 +33,7 @@ console.log(this.props.books);
                 <ol className="books-grid">
                 {
                     this.props.books.filter(book=>book.shelf==='wantToRead').map(book=> <li key={book.id}>
-                                                                                                    <Book />
+                                                                                            <Book book={book}/>
                                                                                                 </li>)
                 }
                 </ol>
@@ -45,7 +45,7 @@ console.log(this.props.books);
                 <ol className="books-grid">
                 {
                     this.props.books.filter(book=>book.shelf==='read').map(book=> <li key={book.id}>
-                                                                                                    <Book />
+                                                                                                    <Book book={book}/>
                                                                                                 </li>)
                 }
                 </ol>
