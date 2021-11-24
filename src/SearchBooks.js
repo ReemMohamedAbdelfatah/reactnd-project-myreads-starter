@@ -6,7 +6,7 @@ import * as BooksAPI from './BooksAPI';
 class SearchBooks extends Component{
  state={
           query:'',
-          searchedBooks:[]
+          AllBooks:[]
         }
  updateQuery = (query)=>{
                           this.setState({query:query})
@@ -16,18 +16,18 @@ class SearchBooks extends Component{
     if(query)
     {
 
-      BooksAPI.search(query).then((searchedBooks)=>{
-        if(searchedBooks.error)
+      BooksAPI.search(query).then((AllBooks)=>{
+        if(AllBooks.error)
         {
-          this.setState({SearchBooks:[]})
+          this.setState({AllBooks:[]})
         }
         else{
-          this.setState({searchedBooks:searchedBooks})
+          this.setState({AllBooks:AllBooks})
         }
        
       })
     } else{
-      this.setState({SearchBooks:[]})
+      this.setState({AllBooks:[]})
     }
   }
 render(){
@@ -52,9 +52,9 @@ render(){
         <div className="search-books-results">
           <ol className="books-grid">
             {
-              this.state.searchedBooks.map(searchedBook => (
-                <li key={searchedBook.id}>
-                <Book book={searchedBook} changeShelf={this.props.changeShelf}/>
+              this.state.AllBooks.map(book => (
+                <li key={book.id}>
+                <Book book={book} changeShelf={this.props.changeShelf}/>
                 </li>
               ))
             }
