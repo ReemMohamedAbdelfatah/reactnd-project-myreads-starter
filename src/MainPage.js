@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Book from './Book'
 
-class MainPage extends Component{
-
+class MainPage extends React.Component {
 render(){
 console.log(this.props.books);
 

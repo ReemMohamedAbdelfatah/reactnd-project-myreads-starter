@@ -11,6 +11,8 @@ class BooksApp extends React.Component {
   state = {
     books: []
   };
+  
+  
     /**
      * TODO: Instead of using this state variable to keep track of which page
      * we're on, use the URL in the browser's address bar. This will ensure that
@@ -18,34 +20,42 @@ class BooksApp extends React.Component {
      * pages, as well as provide a good URL they can bookmark and share.
      */
   
-   
+  
     
-componentDidMount(){
-  BooksAPI.getAll().then((books)=>{
-    this.setState({books:books})
+ async componentDidMount(){
+const books = await BooksAPI.getAll();
+  
+ this.setState({books});
   }
- 
-  )
-  
-}
-changeShelf= (book,shelf)=>{
+
+  async changeShelf(book,shelf)
+  {
+     await BooksAPI.update(book,shelf).then(()=>  BooksAPI.getAll().then((books)=>{
+      this.setState({books})
+    }
+    )
+    )   
+
+  }
+
+ /*changeShelf= (book,shelf)=>{
   BooksAPI.update(book,shelf)
-  
   BooksAPI.getAll().then((books)=>{
     this.setState({books:books})
                                   }
                       )
+                    }*/
                      
-  }
+  
 
 
   render() {
-   
+    
     console.log (this.state.books);
     return (
       <div className="app">
      <Routes>
-        <Route  path="/" element= {<MainPage books={this.state.books} changeShelf={this.changeShelf} />} />
+        <Route  path="/" element= {<MainPage books={this.state.books} changeShelf={this.changeShelf.bind(this)} />} />
         <Route path="/search" element={<SearchBooks changeShelf={this.changeShelf}/>}/>
       </Routes>
       </div>
