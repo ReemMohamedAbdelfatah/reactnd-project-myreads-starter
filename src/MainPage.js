@@ -1,63 +1,48 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Book from './Book'
+import * as BooksAPI from './BooksAPI';
+import ShelfComponent from './shelfComponent';
+
+
 
 class MainPage extends React.Component {
+
+  async componentDidMount(){
+    const books = await BooksAPI.getAll();
+      
+     this.setState({books});
+      }
+  
+
 render(){
 console.log(this.props.books);
 
     return(
-
+<div>
         <div className="list-books">
         <div className="list-books-title">
           <h1>MyReads</h1>
         </div>
         <div className="list-books-content">
           <div>
-            <div className="bookshelf">
-              <h2 className="bookshelf-title">Currently Reading</h2>
-              <div className="bookshelf-books">
-                <ol className="books-grid">
-                {
-                    this.props.books.filter(book=>book.shelf==='currentlyReading').map(book=> <li key={book.id}>
-                                                                                                   <Book book={book} currentShelf="currentlyReading" changeShelf={this.props.changeShelf}/>
-                                                                                               </li>)
-                }
-                  
-                
-                </ol>
-              </div>
-            </div>
-            <div className="bookshelf">
-              <h2 className="bookshelf-title">Want to Read</h2>
-              <div className="bookshelf-books">
-                <ol className="books-grid">
-                {
-                    this.props.books.filter(book=>book.shelf==='wantToRead').map(book=> <li key={book.id}>
-                                                                                            <Book book={book} currentShelf="wantToRead" changeShelf={this.props.changeShelf}/>
-                                                                                                </li>)
-                }
-                </ol>
-              </div>
-            </div>
-            <div className="bookshelf">
-              <h2 className="bookshelf-title">Read</h2>
-              <div className="bookshelf-books">
-                <ol className="books-grid">
-                {
-                    this.props.books.filter(book=>book.shelf==='read').map(book=> <li key={book.id}>
-                                                                                                    <Book book={book} currentShelf="read" changeShelf={this.props.changeShelf}/>
-                                                                                                </li>)
-                }
-                </ol>
-              </div>
-            </div>
-          </div>
+          <ShelfComponent shelfName="Currently Read" books={this.props.books} currentShelf="currentlyReading" changeShelf={this.props.changeShelf}/>
+           </div>
+           <div>
+           <ShelfComponent shelfName="Want to read" books={this.props.books} currentShelf="wantToRead" changeShelf={this.props.changeShelf}/>
+           </div>
+           <div>
+           <ShelfComponent shelfName="Read" books={this.props.books} currentShelf="read" changeShelf={this.props.changeShelf}/>
+           </div>
         </div>
+           
+            
+          </div>
+        
         <div className="open-search">
           <Link to="/search" className=".open-search" >Add a book</Link>
         </div>
-      </div>
+        </div> 
     );
 }
 

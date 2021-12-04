@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import BooksApp from './App';
+import propTypes from 'prop-types';
+
 
 class Book extends Component{
 
@@ -21,6 +23,7 @@ let displayedThubnail = this.props.book.imageLinks?this.props.book.imageLinks.th
         </div>
         <div className="book-title">{this.props.book.title}</div>
         <div className="book-authors">{this.props.book.authors}</div>
+        
       </div>
 
     );
@@ -29,5 +32,9 @@ let displayedThubnail = this.props.book.imageLinks?this.props.book.imageLinks.th
 
 
 }
-
+Book.propTypes={
+  title:propTypes.string,
+  authors: propTypes.string,
+  imageLinks:propTypes.string
+}
 export default Book;

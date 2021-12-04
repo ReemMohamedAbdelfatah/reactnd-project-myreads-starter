@@ -1,6 +1,5 @@
 //import React, { useCallback,useState, Component } from 'react';
 import React, {  Component } from 'react';
-
 import Book from './Book';
 import { Link } from 'react-router-dom';
 import * as BooksAPI from './BooksAPI';
@@ -19,24 +18,16 @@ class SearchBooks extends Component{
     
     this.updateSearchedBooks = this.updateSearchedBooks.bind(this);
     
-    //this.props.changeShelf = this.props.changeShelf.bind(this);
   }
   componentWillUnmount() {
     this.emitChangeDebounced.cancel();
-  }
- /*debounce=(func)=>{
-    let timer;
-    return function (...args){
-      context = this;
-      if(timer) clearTimeout(timer);
-      timer =setTimeout(() => {
-        timer=null;
-        func.apply(context,args);
-      }, 500);
+    BooksAPI.getAll().then( (books)=>{
+      this.setState({books})
+      
     }
+    )
   }
 
-  optimizedFn = useCallback(debounce(updateQuery),[])*/
  
   updateQuery = (query)=>{
          

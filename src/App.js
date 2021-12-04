@@ -31,6 +31,7 @@ const books = await BooksAPI.getAll();
   async changeShelf(book,shelf)
   {
      await BooksAPI.update(book,shelf).then(()=>  BooksAPI.getAll().then((books)=>{
+       
       this.setState({books})
     }
     )
