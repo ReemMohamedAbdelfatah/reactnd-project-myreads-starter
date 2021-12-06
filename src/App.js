@@ -1,67 +1,60 @@
-import React from 'react'
-import MainPage from './MainPage'
-import SearchBooks from './SearchBooks'
-import * as BooksAPI from './BooksAPI'
-import { Route, Routes } from 'react-router-dom'
+import React from "react";
+import MainPage from "./MainPage";
+import SearchBooks from "./SearchBooks";
+import * as BooksAPI from "./BooksAPI";
+import { Route, Routes } from "react-router-dom";
 
 // import * as BooksAPI from './BooksAPI'
-import './App.css'
+import "./App.css";
 
 class BooksApp extends React.Component {
   state = {
-    books: []
+    books: [],
   };
-  
-  
-    /**
-     * TODO: Instead of using this state variable to keep track of which page
-     * we're on, use the URL in the browser's address bar. This will ensure that
-     * users can use the browser's back and forward buttons to navigate between
-     * pages, as well as provide a good URL they can bookmark and share.
-     */
-  
-  
-    
- async componentDidMount(){
-const books = await BooksAPI.getAll();
-  
- this.setState({books});
+
+
+  async componentDidMount() {
+    const books = await BooksAPI.getAll();
+
+    this.setState({ books });
   }
 
-  async changeShelf(book,shelf)
-  {
-     await BooksAPI.update(book,shelf).then(()=>  BooksAPI.getAll().then((books)=>{
-       
-      this.setState({books})
-    }
-    )
-    )   
-
+  async changeShelf(book, shelf) {
+    await BooksAPI.update(book, shelf).then(() =>
+      BooksAPI.getAll().then((books) => {
+        this.setState({ books });
+      })
+    );
   }
 
- /*changeShelf= (book,shelf)=>{
-  BooksAPI.update(book,shelf)
-  BooksAPI.getAll().then((books)=>{
-    this.setState({books:books})
-                                  }
-                      )
-                    }*/
-                     
   
-
 
   render() {
-    
-    console.log (this.state.books);
+    console.log(this.state.books);
     return (
       <div className="app">
-     <Routes>
-        <Route  path="/" element= {<MainPage books={this.state.books} changeShelf={this.changeShelf.bind(this)} />} />
-        <Route path="/search" element={<SearchBooks changeShelf={this.changeShelf}/>}/>
-      </Routes>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <MainPage
+                books={this.state.books}
+                changeShelf={this.changeShelf.bind(this)}
+              />
+            }
+          />
+          <Route
+            path="/search"
+            element={
+            <SearchBooks books={this.state.books} 
+                        changeShelf={this.changeShelf.bind(this)}
+            />
+            }
+          />
+        </Routes>
       </div>
-    )
+    );
   }
 }
 
-export default BooksApp
+export default BooksApp;

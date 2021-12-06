@@ -7501,9 +7501,14 @@
   "version" "0.2.0"
 
 "prettier@^1.14.2":
-  "integrity" "sha512-YgPLFFA0CdKL4Eg2IHtUSjzj/BWgszDHiNQAe0VAIBse34148whfdzLagRL+QiKS+YfK5ftB6X4v/MBw8yCoug=="
-  "resolved" "https://registry.npmjs.org/prettier/-/prettier-1.15.2.tgz"
-  "version" "1.15.2"
+  "integrity" "sha512-s7PoyDv/II1ObgQunCbB9PdLmUcBZcnWOcxDh7O0N/UwDEsHyqkW+Qh28jW+mVuCdx7gLB0BotYI1Y6uI9iyew=="
+  "resolved" "https://registry.npmjs.org/prettier/-/prettier-1.19.1.tgz"
+  "version" "1.19.1"
+
+"prettier@2.5.0":
+  "integrity" "sha512-FM/zAKgWTxj40rH03VxzIPdXmj39SwSjwG0heUcNFwI+EMZJnY93yAiKXM3dObIKAM5TA88werc8T/EwhB45eg=="
+  "resolved" "https://registry.npmjs.org/prettier/-/prettier-2.5.0.tgz"
+  "version" "2.5.0"
 
 "pretty-bytes@^4.0.2":
   "integrity" "sha1-sr+C5zUNZcbDOqlaqlpPYyf2HNk="
