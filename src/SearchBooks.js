@@ -34,7 +34,9 @@ class SearchBooks extends Component {
 
     if (query) {
       BooksAPI.search(query).then((searchedBooks) => {
-        searchedBooks.map((obj) => ({ ...obj, shelf: "none" }));
+        searchedBooks.map
+        
+        ((obj) => ({ ...obj, shelf: "none" }));
 
         console.log(searchedBooks);
 
