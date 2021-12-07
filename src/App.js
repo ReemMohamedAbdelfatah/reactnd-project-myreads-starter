@@ -12,7 +12,6 @@ class BooksApp extends React.Component {
     books: [],
   };
 
-
   async componentDidMount() {
     const books = await BooksAPI.getAll();
 
@@ -27,10 +26,8 @@ class BooksApp extends React.Component {
     );
   }
 
-  
-
   render() {
-    console.log(this.state.books);
+    // console.log(this.state.books);
     return (
       <div className="app">
         <Routes>
@@ -46,9 +43,10 @@ class BooksApp extends React.Component {
           <Route
             path="/search"
             element={
-            <SearchBooks books={this.state.books} 
-                        changeShelf={this.changeShelf.bind(this)}
-            />
+              <SearchBooks
+                books={this.state.books}
+                changeShelf={this.changeShelf.bind(this)}
+              />
             }
           />
         </Routes>

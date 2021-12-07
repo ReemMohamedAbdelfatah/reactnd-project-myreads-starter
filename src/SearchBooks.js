@@ -9,22 +9,17 @@ class SearchBooks extends Component {
   state = {
     query: "",
 
-    AllBooks: [],
+    searchedBooks: [],
   };
   constructor(props) {
     super(props);
 
     this.updateSearchedBooks = this.updateSearchedBooks.bind(this);
   }
-  async componentDidMount() {
-    const books = await BooksAPI.getAll();
-
-    this.setState({ books });
-  }
 
   componentWillUnmount() {
     this.emitChangeDebounced.cancel();
-  /*  BooksAPI.getAll().then((books) => {
+    /*  BooksAPI.getAll().then((books) => {
       this.setState({ books });
     });*/
   }
@@ -33,20 +28,36 @@ class SearchBooks extends Component {
     this.setState({ query: query });
     this.updateSearchedBooks(query);
   };
+
   updateSearchedBooks = (query) => {
-    console.log("read letter");
     this.emitChangeDebounced = debounce(this.emitChange, 500);
 
     if (query) {
-      BooksAPI.search(query).then((AllBooks) => {
-        if (AllBooks.error) {
-          this.setState({ AllBooks: [] });
+      BooksAPI.search(query).then((searchedBooks) => {
+        searchedBooks.map((obj) => ({ ...obj, shelf: "none" }));
+
+        console.log(searchedBooks);
+
+        if (searchedBooks.error) {
+          this.setState({ searchedBooks: [] });
         } else {
-          this.setState({ AllBooks: AllBooks });
+          BooksAPI.getAll().then((books) => {
+            console.log(books);
+            // console.log(searchedBooks)
+            for (let b of books) {
+              for (let Matched_book of searchedBooks) {
+                if (Matched_book.id === b.id) {
+                  Matched_book.shelf = b.shelf;
+                  this.setState({ searchedBooks: searchedBooks });
+                }
+              }
+            }
+          });
+          this.setState({ searchedBooks: searchedBooks });
         }
       });
     } else {
-      this.setState({ AllBooks: [] });
+      this.setState({ searchedBooks: [] });
     }
     // this.emitChangeDebounced(query);
   };
@@ -78,19 +89,11 @@ class SearchBooks extends Component {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            {
-              this.state.AllBooks.map((book) => (
+            {this.state.searchedBooks.map((book) => (
               <li key={book.id}>
-              
-                <Book
-                  book={book}
-                  currentShelf={this.props.currentShelf}
-                  changeShelf={this.props.changeShelf.bind(this)}
-                />
+                <Book book={book} changeShelf={this.props.changeShelf} />
               </li>
-            ))
-
-            }
+            ))}
           </ol>
         </div>
       </div>

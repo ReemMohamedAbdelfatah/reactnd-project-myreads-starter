@@ -36,14 +36,16 @@ class Book extends Component {
           </div>
         </div>
         <div className="book-title">{this.props.book.title}</div>
-        <div className="book-authors">{this.props.authors} </div>
+        <div className="book-authors">
+          {this.props.book.authors.join(", ")}{" "}
+        </div>
       </div>
     );
   }
 }
 Book.propTypes = {
   title: propTypes.string,
-  authors: propTypes.string,
+
   imageLinks: propTypes.string,
 };
 export default Book;
