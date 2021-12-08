@@ -19,9 +19,6 @@ class SearchBooks extends Component {
 
   componentWillUnmount() {
     this.emitChangeDebounced.cancel();
-    /*  BooksAPI.getAll().then((books) => {
-      this.setState({ books });
-    });*/
   }
 
   updateQuery = (query) => {
@@ -33,35 +30,30 @@ class SearchBooks extends Component {
     this.emitChangeDebounced = debounce(this.emitChange, 500);
 
     if (query) {
-      BooksAPI.search(query).then((searchedBooks) => {
-        searchedBooks.map
-        
-        ((obj) => ({ ...obj, shelf: "none" }));
+      BooksAPI.search(query).then(
+        (searchedBooks) => {
+          console.log(searchedBooks);
+          searchedBooks.forEach(searchedBook => {
+            searchedBook.shelf="none";
+          
+            
+          });
+          // searchedBooks.map((obj) => ({ ...obj, shelf: "none" } ))
 
-        console.log(searchedBooks);
-
-        if (searchedBooks.error) {
-          this.setState({ searchedBooks: [] });
-        } else {
           BooksAPI.getAll().then((books) => {
-            console.log(books);
-            // console.log(searchedBooks)
             for (let b of books) {
               for (let Matched_book of searchedBooks) {
-                if (Matched_book.id === b.id) {
-                  Matched_book.shelf = b.shelf;
-                  this.setState({ searchedBooks: searchedBooks });
-                }
+                if (Matched_book.id === b.id) Matched_book.shelf = b.shelf;
               }
             }
           });
           this.setState({ searchedBooks: searchedBooks });
+        },
+        () => {
+          this.setState({ searchedBooks: [] });
         }
-      });
-    } else {
-      this.setState({ searchedBooks: [] });
+      );
     }
-    // this.emitChangeDebounced(query);
   };
 
   emitChange(value) {
@@ -91,11 +83,16 @@ class SearchBooks extends Component {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            {this.state.searchedBooks.map((book) => (
-              <li key={book.id}>
-                <Book book={book} changeShelf={this.props.changeShelf} />
-              </li>
-            ))}
+            {this.state.searchedBooks &&
+              this.state.searchedBooks.map((book) => (
+                <li key={book.id}>
+                  <Book
+                    book={book}
+                    currentShelf={book.shelf}
+                    changeShelf={this.props.changeShelf}
+                  />
+                </li>
+              ))}
           </ol>
         </div>
       </div>
