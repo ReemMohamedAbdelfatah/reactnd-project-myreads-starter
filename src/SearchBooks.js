@@ -33,12 +33,9 @@ class SearchBooks extends Component {
       BooksAPI.search(query).then(
         (searchedBooks) => {
           console.log(searchedBooks);
-          searchedBooks.forEach(searchedBook => {
-            searchedBook.shelf="none";
-          
-            
+          searchedBooks.forEach((searchedBook) => {
+            searchedBook.shelf = "none";
           });
-          // searchedBooks.map((obj) => ({ ...obj, shelf: "none" } ))
 
           BooksAPI.getAll().then((books) => {
             for (let b of books) {
@@ -46,8 +43,8 @@ class SearchBooks extends Component {
                 if (Matched_book.id === b.id) Matched_book.shelf = b.shelf;
               }
             }
+            this.setState({ searchedBooks: searchedBooks });
           });
-          this.setState({ searchedBooks: searchedBooks });
         },
         () => {
           this.setState({ searchedBooks: [] });

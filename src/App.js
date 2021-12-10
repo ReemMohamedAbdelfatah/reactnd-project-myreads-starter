@@ -45,6 +45,7 @@ class BooksApp extends React.Component {
             element={
               <SearchBooks
                 books={this.state.books}
+                currentShelf={this.props.currentShelf}
                 changeShelf={this.changeShelf.bind(this)}
               />
             }
