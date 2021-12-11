@@ -4,6 +4,7 @@ import Book from "./Book";
 import { Link } from "react-router-dom";
 import * as BooksAPI from "./BooksAPI";
 import debounce from "lodash.debounce";
+import { object } from "prop-types";
 
 class SearchBooks extends Component {
   state = {
@@ -33,13 +34,14 @@ class SearchBooks extends Component {
       BooksAPI.search(query).then(
         (searchedBooks) => {
           console.log(searchedBooks);
-          searchedBooks.forEach((searchedBook) => {
+
+          Array.prototype.forEach.call(searchedBooks, (searchedBook) => {
             searchedBook.shelf = "none";
           });
 
           BooksAPI.getAll().then((books) => {
             for (let b of books) {
-              for (let Matched_book of searchedBooks) {
+              for (let Matched_book of Array.from(searchedBooks)) {
                 if (Matched_book.id === b.id) Matched_book.shelf = b.shelf;
               }
             }
@@ -80,7 +82,7 @@ class SearchBooks extends Component {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            {this.state.searchedBooks &&
+            {this.state.searchedBooks.length ? (
               this.state.searchedBooks.map((book) => (
                 <li key={book.id}>
                   <Book
@@ -89,7 +91,10 @@ class SearchBooks extends Component {
                     changeShelf={this.props.changeShelf}
                   />
                 </li>
-              ))}
+              ))
+            ) : (
+              <p>No results</p>
+            )}
           </ol>
         </div>
       </div>
